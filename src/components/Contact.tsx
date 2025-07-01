@@ -1,13 +1,23 @@
-
 import React, { useState } from 'react';
 import { Mail, Github, Linkedin, Send, MapPin, Phone } from 'lucide-react';
+import emailjs from 'emailjs-com';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { motion } from 'framer-motion';
+import Lottie from 'lottie-react';
+import successAnimation from '../assets/Animation.json';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    subject: '',
     message: ''
   });
+
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [showAnimation, setShowAnimation] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
@@ -18,11 +28,43 @@ const Contact = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Here you would typically handle form submission
-    console.log('Form submitted:', formData);
-    // Reset form
-    setFormData({ name: '', email: '', message: '' });
-    // You could add a toast notification here
+    setLoading(true);
+    setShowAnimation(true);
+    const currentTime = new Date().toLocaleString('en-US', {
+      month: 'long',
+      day: 'numeric',
+      year: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
+      hour12: true
+    });
+    emailjs.send(
+      'service_a4wqutp',
+      'template_psa0yla',
+      { ...formData, title: formData.subject, time: currentTime },
+      '3F-rRWWPSPFYgZVEb'
+    ).then((result) => {
+      console.log('Email successfully sent!', result.text);
+      setTimeout(() => {
+        setLoading(false);
+        setShowAnimation(false);
+        toast.success('✅ Your message was sent successfully!', {
+          position: 'top-right',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      }, 2000);
+    }, (error) => {
+      console.error('Failed to send email:', error.text);
+      setLoading(false);
+      setShowAnimation(false);
+      toast.error('Failed to send email. Please try again.');
+    });
+    setFormData({ name: '', email: '', subject: '', message: '' });
   };
 
   const contactInfo = [
@@ -60,6 +102,7 @@ const Contact = () => {
 
   return (
     <div className="py-20 bg-white dark:bg-gray-800">
+      <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
@@ -163,6 +206,22 @@ const Contact = () => {
               </div>
 
               <div>
+                <label htmlFor="subject" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Subject
+                </label>
+                <input
+                  type="text"
+                  id="subject"
+                  name="subject"
+                  value={formData.subject}
+                  onChange={handleChange}
+                  required
+                  className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-800 dark:text-white transition-colors duration-200"
+                  placeholder="Subject of your message"
+                />
+              </div>
+
+              <div>
                 <label htmlFor="message" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   Message
                 </label>
@@ -182,10 +241,34 @@ const Contact = () => {
                 type="submit"
                 className="w-full bg-gradient-to-r from-indigo-600 to-teal-600 text-white font-semibold py-3 px-6 rounded-lg hover:from-indigo-700 hover:to-teal-700 transition-all duration-300 transform hover:scale-105 flex items-center justify-center"
               >
-                <Send className="w-5 h-5 mr-2" />
-                Send Message
+                {loading ? (
+                  <Lottie animationData={successAnimation} loop={false} style={{ height: 24 }} />
+                ) : (
+                  <>
+                    <Send className="w-5 h-5 mr-2" />
+                    Send Message
+                  </>
+                )}
               </button>
             </form>
+
+            {success && (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.5 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.5 }}
+                className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700 text-center"
+              >
+                <motion.p
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.5 }}
+                  className="text-sm text-green-500 dark:text-green-400 mt-2"
+                >
+                  ✅ Your message was sent successfully!
+                </motion.p>
+              </motion.div>
+            )}
 
             <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
               <p className="text-sm text-gray-500 dark:text-gray-400 text-center">

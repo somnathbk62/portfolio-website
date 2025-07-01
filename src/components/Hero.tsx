@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Download, Mail, ArrowDown, Sparkles, Code2, Palette } from 'lucide-react';
 
@@ -18,7 +17,7 @@ const Hero = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-50 via-white to-teal-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 relative overflow-hidden px-4 sm:px-6 lg:px-8">
+    <div className="min-h-[calc(100vh-64px)] flex items-center justify-center bg-gradient-to-br from-indigo-50 via-white to-teal-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 relative overflow-hidden px-4 sm:px-6 lg:px-8">
       {/* Background decorative elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute -top-20 sm:-top-40 -right-20 sm:-right-40 w-40 h-40 sm:w-80 sm:h-80 bg-gradient-to-br from-indigo-400/20 to-purple-600/20 rounded-full blur-3xl animate-pulse"></div>
@@ -26,7 +25,7 @@ const Hero = () => {
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-48 h-48 sm:w-96 sm:h-96 bg-gradient-to-br from-purple-400/10 to-pink-600/10 rounded-full blur-3xl animate-pulse delay-500"></div>
       </div>
 
-      <div className="max-w-7xl mx-auto py-12 sm:py-16 lg:py-20 relative z-10 w-full">
+      <div className="max-w-7xl mx-auto py-4 sm:py-6 lg:py-8 relative z-10 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 items-center">
           {/* Content */}
           <div className="text-center lg:text-left space-y-6 sm:space-y-8 animate-fade-in order-2 lg:order-1">
@@ -67,7 +66,7 @@ const Hero = () => {
             </p>
             
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start flex-wrap">
               <button
                 onClick={scrollToContact}
                 className="group px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold rounded-2xl hover:from-indigo-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 shadow-xl hover:shadow-2xl text-sm sm:text-base"
@@ -77,13 +76,16 @@ const Hero = () => {
                   Let's Connect
                 </div>
               </button>
-              
-              <button className="group px-6 sm:px-8 py-3 sm:py-4 border-2 border-indigo-600 text-indigo-600 dark:text-indigo-400 dark:border-indigo-400 font-semibold rounded-2xl hover:bg-indigo-600 hover:text-white dark:hover:bg-indigo-600 dark:hover:text-white transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 shadow-lg hover:shadow-xl text-sm sm:text-base">
+              <a
+                href="/resuma.pdf"
+                download
+                className="group px-6 sm:px-8 py-3 sm:py-4 border-2 border-indigo-600 text-indigo-600 dark:text-indigo-400 dark:border-indigo-400 font-semibold rounded-2xl hover:bg-indigo-600 hover:text-white dark:hover:bg-indigo-600 dark:hover:text-white transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 shadow-lg hover:shadow-xl text-sm sm:text-base"
+              >
                 <div className="flex items-center justify-center">
                   <Download className="w-4 h-4 sm:w-5 sm:h-5 mr-2 group-hover:animate-bounce" />
                   Download Resume
                 </div>
-              </button>
+              </a>
             </div>
 
             {/* Scroll indicator */}
@@ -108,10 +110,14 @@ const Hero = () => {
                 <div className="absolute inset-1 sm:inset-2 rounded-full bg-gradient-to-br from-teal-400 via-blue-500 to-indigo-400 animate-spin-reverse"></div>
                 
                 {/* Profile picture container */}
-                <div className="absolute inset-2 sm:inset-4 bg-white dark:bg-gray-800 rounded-full shadow-2xl flex items-center justify-center">
+                <div className="absolute inset-1 sm:inset-2 bg-white dark:bg-gray-800 rounded-full shadow-2xl flex items-center justify-center">
                   <div className="text-center space-y-2 sm:space-y-4">
-                    <div className="w-24 h-24 sm:w-32 sm:h-32 bg-gradient-to-br from-indigo-600 to-teal-600 rounded-full mx-auto flex items-center justify-center shadow-lg">
-                      <span className="text-2xl sm:text-4xl font-bold text-white">SB</span>
+                    <div className="w-52 h-52 sm:w-72 sm:h-72 bg-gradient-to-br from-indigo-600 to-teal-600 rounded-full mx-auto flex items-center justify-center shadow-lg overflow-hidden">
+                      <img
+                        src="https://i.postimg.cc/SKC2Lg1G/Whats-App-Image-2025-07-01-at-6-21-23-PM.jpg"
+                        alt="Profile"
+                        className="w-full h-full object-cover rounded-full"
+                      />
                     </div>
                     <div className="space-y-1 sm:space-y-2">
                       <p className="text-gray-600 dark:text-gray-400 text-xs sm:text-sm font-medium">

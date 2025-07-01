@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Mail, Github, Linkedin, Download, Moon, Sun, Menu, X } from 'lucide-react';
 import Hero from '../components/Hero';
@@ -106,7 +105,7 @@ const Index = () => {
       </nav>
 
       {/* Main Content */}
-      <main className="pt-14 sm:pt-16 bg-gray-50 dark:bg-gray-900">
+      <main className="pt-10 bg-gray-50 dark:bg-gray-900">
         <section id="home">
           <Hero />
         </section>

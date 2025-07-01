@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Github, ExternalLink, Code, Shield } from 'lucide-react';
 
@@ -16,7 +15,7 @@ const Projects = () => {
       ],
       icon: <Code className="w-8 h-8" />,
       color: "indigo",
-      github: "https://github.com/somnathbk62"
+      github: "https://github.com/somnathbk62/projects/tree/main/tic-tac-toe-game"
     },
     {
       title: "🔐 SecureDoc Web App",
@@ -30,8 +29,24 @@ const Projects = () => {
       ],
       icon: <Shield className="w-8 h-8" />,
       color: "teal",
-      github: "https://github.com/somnathbk62",
-      demo: "#"
+      github: "https://github.com/somnathbk62/projects/tree/main/securedocs",
+      demo: "https://securefileshub.netlify.app/"
+    },
+    {
+      title: "💱 Currency Converter",
+      description: "Currency Converter is a modern, web-based application that enables users to convert between over 150 world currencies using real-time exchange rates. The project is designed with a focus on user experience, featuring a clean, responsive interface and smooth animations.",
+      technologies: ["HTML", "CSS", "JavaScript", "open.er-api.com"],
+      features: [
+        "Convert between 150+ global currencies.",
+        "Real-time exchange rates powered by open.er-api.com.",
+        "Intuitive, user-friendly UI with responsive design for all devices.",
+        "One-click currency swap functionality.",
+        "Modern look and feel, inspired by current web design trends."
+      ],
+      icon: <ExternalLink className="w-8 h-8" />,
+      color: "teal",
+      github: "https://github.com/somnathbk62/projects/tree/main/currency-converter",
+      demo: "https://global-exchange.netlify.app/"
     }
   ];
 
@@ -71,62 +86,66 @@ const Projects = () => {
           {projects.map((project, index) => {
             const colors = getColorClasses(project.color);
             return (
-              <div key={index} className={`bg-gray-50 dark:bg-gray-900 p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border ${colors.border}`}>
+              <div
+                key={index}
+                className={`bg-gray-50 dark:bg-gray-900 p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border ${colors.border} fade-in-up flex flex-col justify-between`}
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
                 {/* Project Header */}
-                <div className="flex items-center mb-6">
-                  <div className={`w-16 h-16 ${colors.bg} rounded-full flex items-center justify-center mr-4`}>
-                    <div className={colors.icon}>
-                      {project.icon}
+                <div>
+                  <div className="flex items-center mb-4">
+                    <div className={`w-14 h-14 ${colors.bg} rounded-2xl flex items-center justify-center mr-3 shadow-md transition-transform duration-300`}>
+                      <div className={colors.icon}>
+                        {project.icon}
+                      </div>
+                    </div>
+                    <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
+                      {project.title}
+                    </h3>
+                  </div>
+
+                  {/* Project Description */}
+                  <p className="text-gray-700 dark:text-gray-300 mb-4 leading-relaxed font-medium">
+                    {project.description}
+                  </p>
+
+                  {/* Technologies */}
+                  <div className="mb-3">
+                    <h4 className="text-xs font-semibold text-gray-500 dark:text-gray-400 mb-2 uppercase tracking-widest">
+                      Technologies Used
+                    </h4>
+                    <div className="flex flex-wrap gap-2">
+                      {project.technologies.map((tech, techIndex) => (
+                        <span key={techIndex} className={`px-3 py-1 ${colors.bg} ${colors.text} rounded-full text-xs font-semibold shadow-sm`}> {tech} </span>
+                      ))}
                     </div>
                   </div>
-                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
-                    {project.title}
-                  </h3>
-                </div>
 
-                {/* Project Description */}
-                <p className="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
-                  {project.description}
-                </p>
-
-                {/* Technologies */}
-                <div className="mb-6">
-                  <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 uppercase tracking-wide">
-                    Technologies Used
-                  </h4>
-                  <div className="flex flex-wrap gap-2">
-                    {project.technologies.map((tech, techIndex) => (
-                      <span key={techIndex} className={`px-3 py-1 ${colors.bg} ${colors.text} rounded-full text-sm font-medium`}>
-                        {tech}
-                      </span>
-                    ))}
+                  {/* Features */}
+                  <div className="mb-4">
+                    <h4 className="text-xs font-semibold text-gray-500 dark:text-gray-400 mb-2 uppercase tracking-widest">
+                      Key Features
+                    </h4>
+                    <ul className="space-y-1">
+                      {project.features.map((feature, featureIndex) => (
+                        <li key={featureIndex} className="flex items-start">
+                          <span className={`w-2 h-2 mt-2 mr-2 rounded-full inline-block ${colors.button}`}></span>
+                          <span className="text-gray-600 dark:text-gray-300 text-sm font-normal">
+                            {feature}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-                </div>
-
-                {/* Features */}
-                <div className="mb-8">
-                  <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 uppercase tracking-wide">
-                    Key Features
-                  </h4>
-                  <ul className="space-y-2">
-                    {project.features.map((feature, featureIndex) => (
-                      <li key={featureIndex} className="flex items-start">
-                        <div className={`w-2 h-2 ${colors.button} rounded-full mt-2 mr-3 flex-shrink-0`}></div>
-                        <span className="text-gray-600 dark:text-gray-400 text-sm">
-                          {feature}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
                 </div>
 
                 {/* Action Buttons */}
-                <div className="flex gap-4">
+                <div className="flex gap-4 mt-auto">
                   <a
                     href={project.github}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`flex-1 ${colors.button} text-white px-4 py-2 rounded-lg font-medium transition-colors duration-200 flex items-center justify-center`}
+                    className={`flex-1 bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-4 py-2 rounded-2xl font-semibold transition-all duration-200 flex items-center justify-center shadow-md hover:scale-105 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-indigo-400`}
                   >
                     <Github className="w-4 h-4 mr-2" />
                     View Code
@@ -136,7 +155,7 @@ const Projects = () => {
                       href={project.demo}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex-1 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg font-medium hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 flex items-center justify-center"
+                      className="flex-1 border-2 border-indigo-600 text-indigo-600 dark:text-indigo-400 dark:border-indigo-400 px-4 py-2 rounded-2xl font-semibold hover:bg-indigo-600 hover:text-white dark:hover:bg-indigo-600 dark:hover:text-white transition-all duration-200 flex items-center justify-center shadow-md hover:scale-105 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-teal-400"
                     >
                       <ExternalLink className="w-4 h-4 mr-2" />
                       Live Demo
@@ -170,6 +189,33 @@ const Projects = () => {
           </div>
         </div>
       </div>
+
+      {/* Add custom scrollbar and fade-in animation styles */}
+      <style dangerouslySetInnerHTML={{__html: `
+        .custom-scrollbar-horizontal::-webkit-scrollbar {
+          height: 5px;
+          background: transparent;
+        }
+        .custom-scrollbar-horizontal::-webkit-scrollbar-thumb {
+          background: linear-gradient(90deg, #6366f1 0%, #14b8a6 100%);
+          border-radius: 8px;
+          opacity: 0.7;
+        }
+        .fade-in-up {
+          opacity: 0;
+          transform: translateY(40px);
+          animation: fadeInUp 0.6s forwards;
+        }
+        @keyframes fadeInUp {
+          to {
+            opacity: 1;
+            transform: none;
+          }
+        }
+        .hover\:border-gradient:hover {
+          border-image: linear-gradient(90deg, #6366f1 0%, #14b8a6 100%) 1;
+        }
+      `}} />
     </div>
   );
 };

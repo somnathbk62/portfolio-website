@@ -1,99 +1,75 @@
-
 import React from 'react';
 import { GraduationCap, Target, User } from 'lucide-react';
 
 const About = () => {
   return (
-    <div className="py-20 bg-white dark:bg-gray-800">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
-            About Me
-          </h2>
-          <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-            Get to know more about my journey, education, and aspirations
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* Personal Info */}
-          <div className="space-y-8">
-            <div className="bg-gray-50 dark:bg-gray-900 p-8 rounded-2xl shadow-lg">
-              <div className="flex items-center mb-6">
-                <User className="w-8 h-8 text-indigo-600 dark:text-indigo-400 mr-3" />
-                <h3 className="text-2xl font-bold text-gray-900 dark:text-white">Personal Bio</h3>
-              </div>
-              <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
-                I'm a passionate frontend developer with a strong foundation in modern web technologies. 
-                My journey in programming started with curiosity and has evolved into a deep love for 
-                creating engaging, user-friendly web applications. I believe in writing clean, efficient 
-                code and continuously learning new technologies to stay ahead in this rapidly evolving field.
-              </p>
-            </div>
-
-            <div className="bg-gray-50 dark:bg-gray-900 p-8 rounded-2xl shadow-lg">
-              <div className="flex items-center mb-6">
-                <Target className="w-8 h-8 text-teal-600 dark:text-teal-400 mr-3" />
-                <h3 className="text-2xl font-bold text-gray-900 dark:text-white">Career Goals</h3>
-              </div>
-              <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
-                Currently learning full-stack web development with a focus on JavaScript and React. 
-                My immediate goal is to secure a frontend developer role where I can contribute 
-                meaningful solutions while growing into a full-stack engineer.
-              </p>
-              <div className="flex flex-wrap gap-2">
-                <span className="px-3 py-1 bg-indigo-100 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-200 rounded-full text-sm font-medium">
-                  Frontend Focus
-                </span>
-                <span className="px-3 py-1 bg-teal-100 dark:bg-teal-900 text-teal-800 dark:text-teal-200 rounded-full text-sm font-medium">
-                  Full-Stack Aspiration
-                </span>
-                <span className="px-3 py-1 bg-amber-100 dark:bg-amber-900 text-amber-800 dark:text-amber-200 rounded-full text-sm font-medium">
-                  Continuous Learning
-                </span>
-              </div>
-            </div>
+    <div>
+      <style>{`
+        .card {
+          background: linear-gradient(135deg, #f0f4ff, #e0f7fa);
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+          transform: translateY(-10px);
+          box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+        }
+        .icon {
+          color: #4f46e5;
+        }
+        .heading {
+          background: linear-gradient(135deg, #4f46e5, #3b82f6);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+        }
+        .body-text {
+          color: #374151;
+        }
+      `}</style>
+      <div className="py-20 bg-gray-50 dark:bg-gray-900">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold heading mb-8">
+              About Me
+            </h2>
+            <p className="text-xl body-text max-w-3xl mx-auto">
+              Discover my journey, skills, and aspirations as a modern web developer.
+            </p>
           </div>
 
-          {/* Education */}
-          <div className="space-y-8">
-            <div className="bg-gradient-to-br from-indigo-50 to-teal-50 dark:from-gray-900 dark:to-gray-800 p-8 rounded-2xl shadow-lg">
-              <div className="flex items-center mb-6">
-                <GraduationCap className="w-8 h-8 text-indigo-600 dark:text-indigo-400 mr-3" />
-                <h3 className="text-2xl font-bold text-gray-900 dark:text-white">Educational Background</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+            {/* Personal Bio */}
+            <div className="card p-10 rounded-2xl">
+              <div className="flex flex-col items-center text-center">
+                <User className="icon w-16 h-16 mb-6" />
+                <h3 className="text-2xl font-bold heading mb-4">Personal Bio</h3>
+                <p className="text-lg body-text leading-relaxed">
+                  I'm a passionate frontend developer with a strong foundation in modern web technologies. My journey in programming started with curiosity and has evolved into a deep love for creating engaging, user-friendly web applications.
+                </p>
               </div>
-              
-              <div className="space-y-6">
-                <div className="border-l-4 border-indigo-600 pl-6">
-                  <h4 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-                    Bachelor of Computer Applications (BCA)
-                  </h4>
-                  <p className="text-indigo-600 dark:text-indigo-400 font-medium mb-1">
-                    GNA University
-                  </p>
-                  <p className="text-gray-600 dark:text-gray-400 text-sm">
-                    2022 - Present
-                  </p>
-                  <p className="text-gray-600 dark:text-gray-400 mt-2">
-                    Pursuing comprehensive education in computer applications with focus on 
-                    web development, programming fundamentals, and software engineering principles.
-                  </p>
-                </div>
-                
-                <div className="border-l-4 border-teal-600 pl-6">
-                  <h4 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-                    12th Grade
-                  </h4>
-                  <p className="text-teal-600 dark:text-teal-400 font-medium mb-1">
-                    St. Soldier Divine Public School
-                  </p>
-                  <p className="text-gray-600 dark:text-gray-400 text-sm">
-                    Completed 2021
-                  </p>
-                  <p className="text-gray-600 dark:text-gray-400 mt-2">
-                    Built strong foundation in mathematics and science, developing analytical 
-                    thinking skills essential for programming.
-                  </p>
+            </div>
+
+            {/* Career Goals */}
+            <div className="card p-10 rounded-2xl">
+              <div className="flex flex-col items-center text-center">
+                <Target className="icon w-16 h-16 mb-6" />
+                <h3 className="text-2xl font-bold heading mb-4">Career Goals</h3>
+                <p className="text-lg body-text leading-relaxed">
+                  Currently learning full-stack web development with a focus on JavaScript and React. My immediate goal is to secure a frontend developer role where I can contribute meaningful solutions while growing into a full-stack engineer.
+                </p>
+              </div>
+            </div>
+
+            {/* Education Timeline */}
+            <div className="card p-10 rounded-2xl">
+              <div className="flex flex-col items-center text-center">
+                <GraduationCap className="icon w-16 h-16 mb-6" />
+                <h3 className="text-2xl font-bold heading mb-4">Education</h3>
+                <div className="text-lg body-text leading-relaxed">
+                  <p className="mb-3"><strong>Bachelor of Computer Applications (BCA)</strong> - GNA University (2022 - Present)</p>
+                  <p className="mb-3">Pursuing comprehensive education in computer applications with a focus on web development, programming fundamentals, and software engineering principles.</p>
+                  <p><strong>12th Grade</strong> - St. Soldier Divine Public School (Completed 2021)</p>
+                  <p>Built a strong foundation in mathematics and science, developing analytical thinking skills essential for programming.</p>
                 </div>
               </div>
             </div>
