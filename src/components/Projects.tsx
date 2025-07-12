@@ -213,11 +213,27 @@ const Projects = () => {
               })}
             </div>
             {/* Gradient overlay right edge */}
-            <div className="pointer-events-none absolute top-0 right-0 h-full w-16 z-10" style={{background: "linear-gradient(to left, rgba(255,255,255,0.85) 60%, rgba(255,255,255,0))"}} />
+            <div
+              className="pointer-events-none absolute top-0 right-0 h-full w-16 z-10"
+              style={{
+                background:
+                  "linear-gradient(to left, rgba(255,255,255,0.85) 60%, rgba(255,255,255,0))",
+              }}
+            />
             {/* Animated right arrow cue */}
             {showArrow && (
               <div className="pointer-events-none absolute top-1/2 right-6 z-20 -translate-y-1/2 flex items-center">
-                <svg className="animate-bounce-x" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#6366f1" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <svg
+                  className="animate-bounce-x"
+                  width="32"
+                  height="32"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#6366f1"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
                   <polyline points="9 18 15 12 9 6" />
                 </svg>
               </div>
