@@ -36,8 +36,7 @@ const Projects = () => {
       ],
       icon: <Code className="w-8 h-8" />,
       color: "indigo",
-      github:
-        "https://github.com/somnathbk62/projects/tree/main/tic-tac-toe-game",
+      github: "https://github.com/somnathbk62/tic-tac-toe-game",
     },
     {
       title: "🔐 SecureDoc Web App",
@@ -58,8 +57,8 @@ const Projects = () => {
       ],
       icon: <Shield className="w-8 h-8" />,
       color: "teal",
-      github: "https://github.com/somnathbk62/projects/tree/main/securedocs",
-      demo: "https://securefileshub.netlify.app/",
+      github: "https://github.com/somnathbk62/securedocs",
+      demo: "https://securedocsvault.netlify.app/",
     },
     {
       title: "💱 Currency Converter",
@@ -75,9 +74,8 @@ const Projects = () => {
       ],
       icon: <ExternalLink className="w-8 h-8" />,
       color: "teal",
-      github:
-        "https://github.com/somnathbk62/projects/tree/main/currency-converter",
-      demo: "https://global-exchange.netlify.app/",
+      github: "https://github.com/somnathbk62/currency-converter",
+      demo: "https://globexchange.netlify.app/",
     },
   ];
 
