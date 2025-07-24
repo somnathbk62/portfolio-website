@@ -47,15 +47,15 @@ const Projects = () => {
       title: "🤝 CodeTogether: Real-Time Collaborative Code Editor & Chat",
       description:
         "A full-stack, real-time collaborative code editor and chat platform. Enables multiple users to edit code together, chat live, share files, and switch between light/dark themes. Available on both web and Android, it’s designed for seamless teamwork, learning, and remote collaboration.",
-        technologies: [
-          "React",
-          "Node.js",
-          "Express",
-          "Socket.io",
-          "WebSockets",
-          "CodeMirror",
-          "Tailwind CSS",
-        ],
+      technologies: [
+        "React",
+        "Node.js",
+        "Express",
+        "Socket.io",
+        "WebSockets",
+        "CodeMirror",
+        "Tailwind CSS",
+      ],
       features: [
         "Real-time code collaboration (multi-user, instant sync)",
         "Integrated live chat per room",
@@ -63,13 +63,66 @@ const Projects = () => {
         "Light/dark theming",
         "Rate limiting for code execution API",
         "Simple room creation/joining",
-        "Modern, responsive UI"
+        "Modern, responsive UI",
       ],
       icon: <ExternalLink className="w-8 h-8" />, // Using ExternalLink for demo/project
       color: "indigo", // Reusing indigo for visual variety
       github: "https://github.com/somnathbk62/code_together",
-      demo: "https://codewith-us.netlify.app/"
-    },{
+      demo: "https://codewith-us.netlify.app/",
+    },
+    {
+      title: "🔐 SecureDoc: College File Manager with Firebase Authentication ",
+      description:
+        "A web-based file management system for colleges and academic institutions. SecureDoc allows students and staff to upload, access, and manage files securely using Firebase services. The project focuses on access control, real-time availability, and user-friendly interface.",
+      technologies: [
+        "JavaScript",
+        "Firebase Auth",
+        "File Storage",
+        "Bootstrap",
+        "Web APIs",
+        "Responsive Design",
+      ],
+      features: [
+        "User authentication with Firebase Auth",
+        "Secure file upload and storage",
+        "Real-time sync and access",
+        "Responsive web design",
+        "Designed for student/college use cases",
+        "Role-based access for students, and admins",
+      ],
+      icon: <Shield className="w-8 h-8" />,
+      color: "teal",
+      github: "https://github.com/somnathbk62/projects/tree/main/securedocs",
+      demo: "https://securefileshub.netlify.app/",
+    },
+    {
+      title: "🤝 CodeTogether: Real-Time Collaborative Code Editor & Chat",
+      description:
+        "A full-stack, real-time collaborative code editor and chat platform. Enables multiple users to edit code together, chat live, share files, and switch between light/dark themes. Available on both web and Android, it’s designed for seamless teamwork, learning, and remote collaboration.",
+      technologies: [
+        "React",
+        "Node.js",
+        "Express",
+        "Socket.io",
+        "WebSockets",
+        "CodeMirror",
+        "Tailwind CSS",
+      ],
+      features: [
+        "Real-time code collaboration (multi-user, instant sync)",
+        "Integrated live chat per room",
+        "File and image uploads within sessions",
+        "Light/dark theming",
+        "Rate limiting for code execution API",
+        "Simple room creation/joining",
+        "Modern, responsive UI",
+      ],
+      icon: <ExternalLink className="w-8 h-8" />, // Using ExternalLink for demo/project
+      color: "indigo", // Reusing indigo for visual variety
+      github: "https://github.com/somnathbk62/code_together",
+      demo: "https://codewith-us.netlify.app/",
+    },
+    {
       title: "🎮 Tic Tac Toe Game",
       description:
         "Console-based interactive game built with C++ featuring win/draw detection logic and clean user interface. Demonstrates strong understanding of procedural programming and game logic implementation.",
@@ -89,7 +142,8 @@ const Projects = () => {
       color: "indigo",
       github:
         "https://github.com/somnathbk62/projects/tree/main/tic-tac-toe-game",
-    },{
+    },
+    {
       title: "💱 Currency Converter",
       description:
         "Currency Converter is a modern, web-based application that enables users to convert between over 150 world currencies using real-time exchange rates. The project is designed with a focus on user experience, featuring a clean, responsive interface and smooth animations.",
@@ -103,9 +157,8 @@ const Projects = () => {
       ],
       icon: <ExternalLink className="w-8 h-8" />,
       color: "teal",
-      github:
-        "https://github.com/somnathbk62/projects/tree/main/currency-converter",
-      demo: "https://global-exchange.netlify.app/",
+      github: "https://github.com/somnathbk62/currency-converter",
+      demo: "https://globexchange.netlify.app/",
     },
   ];
 
@@ -241,11 +294,27 @@ const Projects = () => {
               })}
             </div>
             {/* Gradient overlay right edge */}
-            <div className="pointer-events-none absolute top-0 right-0 h-full w-16 z-10" style={{background: "linear-gradient(to left, rgba(255,255,255,0.85) 60%, rgba(255,255,255,0))"}} />
+            <div
+              className="pointer-events-none absolute top-0 right-0 h-full w-16 z-10"
+              style={{
+                background:
+                  "linear-gradient(to left, rgba(255,255,255,0.85) 60%, rgba(255,255,255,0))",
+              }}
+            />
             {/* Animated right arrow cue */}
             {showArrow && (
               <div className="pointer-events-none absolute top-1/2 right-6 z-20 -translate-y-1/2 flex items-center">
-                <svg className="animate-bounce-x" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#6366f1" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <svg
+                  className="animate-bounce-x"
+                  width="32"
+                  height="32"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#6366f1"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
                   <polyline points="9 18 15 12 9 6" />
                 </svg>
               </div>
