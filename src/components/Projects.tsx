@@ -71,58 +71,6 @@ const Projects = () => {
       demo: "https://codewith-us.netlify.app/",
     },
     {
-      title: "🔐 SecureDoc: College File Manager with Firebase Authentication ",
-      description:
-        "A web-based file management system for colleges and academic institutions. SecureDoc allows students and staff to upload, access, and manage files securely using Firebase services. The project focuses on access control, real-time availability, and user-friendly interface.",
-      technologies: [
-        "JavaScript",
-        "Firebase Auth",
-        "File Storage",
-        "Bootstrap",
-        "Web APIs",
-        "Responsive Design",
-      ],
-      features: [
-        "User authentication with Firebase Auth",
-        "Secure file upload and storage",
-        "Real-time sync and access",
-        "Responsive web design",
-        "Designed for student/college use cases",
-        "Role-based access for students, and admins",
-      ],
-      icon: <Shield className="w-8 h-8" />,
-      color: "teal",
-      github: "https://github.com/somnathbk62/projects/tree/main/securedocs",
-      demo: "https://securefileshub.netlify.app/",
-    },
-    {
-      title: "🤝 CodeTogether: Real-Time Collaborative Code Editor & Chat",
-      description:
-        "A full-stack, real-time collaborative code editor and chat platform. Enables multiple users to edit code together, chat live, share files, and switch between light/dark themes. Available on both web and Android, it’s designed for seamless teamwork, learning, and remote collaboration.",
-      technologies: [
-        "React",
-        "Node.js",
-        "Express",
-        "Socket.io",
-        "WebSockets",
-        "CodeMirror",
-        "Tailwind CSS",
-      ],
-      features: [
-        "Real-time code collaboration (multi-user, instant sync)",
-        "Integrated live chat per room",
-        "File and image uploads within sessions",
-        "Light/dark theming",
-        "Rate limiting for code execution API",
-        "Simple room creation/joining",
-        "Modern, responsive UI",
-      ],
-      icon: <ExternalLink className="w-8 h-8" />, // Using ExternalLink for demo/project
-      color: "indigo", // Reusing indigo for visual variety
-      github: "https://github.com/somnathbk62/code_together",
-      demo: "https://codewith-us.netlify.app/",
-    },
-    {
       title: "🎮 Tic Tac Toe Game",
       description:
         "Console-based interactive game built with C++ featuring win/draw detection logic and clean user interface. Demonstrates strong understanding of procedural programming and game logic implementation.",
