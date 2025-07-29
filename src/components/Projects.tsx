@@ -61,7 +61,6 @@ const Projects = () => {
         "Integrated live chat per room",
         "File and image uploads within sessions",
         "Light/dark theming",
-        "Rate limiting for code execution API",
         "Simple room creation/joining",
         "Modern, responsive UI",
       ],

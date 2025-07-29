@@ -1,28 +1,30 @@
-import React, { useState } from 'react';
-import { Mail, Github, Linkedin, Send, MapPin, Phone } from 'lucide-react';
-import emailjs from 'emailjs-com';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { motion } from 'framer-motion';
-import Lottie from 'lottie-react';
-import successAnimation from '../assets/Animation.json';
+import React, { useState } from "react";
+import { Mail, Github, Linkedin, Send, MapPin, Phone } from "lucide-react";
+import emailjs from "emailjs-com";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { motion } from "framer-motion";
+import Lottie from "lottie-react";
+import successAnimation from "../assets/Animation.json";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: ''
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
   });
 
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [showAnimation, setShowAnimation] = useState(false);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
@@ -30,41 +32,46 @@ const Contact = () => {
     e.preventDefault();
     setLoading(true);
     setShowAnimation(true);
-    const currentTime = new Date().toLocaleString('en-US', {
-      month: 'long',
-      day: 'numeric',
-      year: 'numeric',
-      hour: 'numeric',
-      minute: 'numeric',
-      hour12: true
+    const currentTime = new Date().toLocaleString("en-US", {
+      month: "long",
+      day: "numeric",
+      year: "numeric",
+      hour: "numeric",
+      minute: "numeric",
+      hour12: true,
     });
-    emailjs.send(
-      'service_a4wqutp',
-      'template_psa0yla',
-      { ...formData, title: formData.subject, time: currentTime },
-      '3F-rRWWPSPFYgZVEb'
-    ).then((result) => {
-      console.log('Email successfully sent!', result.text);
-      setTimeout(() => {
-        setLoading(false);
-        setShowAnimation(false);
-        toast.success('✅ Your message was sent successfully!', {
-          position: 'top-right',
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
-      }, 2000);
-    }, (error) => {
-      console.error('Failed to send email:', error.text);
-      setLoading(false);
-      setShowAnimation(false);
-      toast.error('Failed to send email. Please try again.');
-    });
-    setFormData({ name: '', email: '', subject: '', message: '' });
+    emailjs
+      .send(
+        "service_a4wqutp",
+        "template_psa0yla",
+        { ...formData, title: formData.subject, time: currentTime },
+        "3F-rRWWPSPFYgZVEb"
+      )
+      .then(
+        (result) => {
+          console.log("Email successfully sent!", result.text);
+          setTimeout(() => {
+            setLoading(false);
+            setShowAnimation(false);
+            toast.success("✅ Your message was sent successfully!", {
+              position: "top-right",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            });
+          }, 2000);
+        },
+        (error) => {
+          console.error("Failed to send email:", error.text);
+          setLoading(false);
+          setShowAnimation(false);
+          toast.error("Failed to send email. Please try again.");
+        }
+      );
+    setFormData({ name: "", email: "", subject: "", message: "" });
   };
 
   const contactInfo = [
@@ -73,43 +80,56 @@ const Contact = () => {
       label: "Email",
       value: "somnathbk62@gmail.com",
       href: "mailto:somnathbk62@gmail.com",
-      color: "indigo"
+      color: "indigo",
     },
     {
       icon: <Linkedin className="w-6 h-6" />,
       label: "LinkedIn",
       value: "linkedin.com/in/somnathbk",
       href: "https://linkedin.com/in/somnathbk",
-      color: "teal"
+      color: "teal",
     },
     {
       icon: <Github className="w-6 h-6" />,
       label: "GitHub",
       value: "github.com/somnathbk62",
       href: "https://github.com/somnathbk62",
-      color: "amber"
-    }
+      color: "amber",
+    },
   ];
 
   const getColorClasses = (color: string) => {
     const colorMap = {
-      indigo: "text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300",
+      indigo:
+        "text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300",
       teal: "text-teal-600 dark:text-teal-400 hover:text-teal-700 dark:hover:text-teal-300",
-      amber: "text-amber-600 dark:text-amber-400 hover:text-amber-700 dark:hover:text-amber-300"
+      amber:
+        "text-amber-600 dark:text-amber-400 hover:text-amber-700 dark:hover:text-amber-300",
     };
     return colorMap[color as keyof typeof colorMap];
   };
 
   return (
     <div className="py-20 bg-white dark:bg-gray-800">
-      <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
             Let's Connect
           </h2>
           <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-            I'm always interested in discussing new opportunities, collaborations, or just having a chat about technology
+            I'm always interested in discussing new opportunities,
+            collaborations, or just having a chat about technology
           </p>
         </div>
 
@@ -121,9 +141,10 @@ const Contact = () => {
                 Get In Touch
               </h3>
               <p className="text-gray-600 dark:text-gray-400 mb-8 leading-relaxed">
-                Whether you're looking for a passionate frontend developer for your team, 
-                want to discuss potential collaborations, or just want to connect with a 
-                fellow developer, I'd love to hear from you!
+                Whether you're looking for a passionate frontend developer for
+                your team, want to discuss potential collaborations, or just
+                want to connect with a fellow developer, I'd love to hear from
+                you!
               </p>
             </div>
 
@@ -133,11 +154,17 @@ const Contact = () => {
                 <a
                   key={index}
                   href={contact.href}
-                  target={contact.href.startsWith('http') ? '_blank' : '_self'}
-                  rel={contact.href.startsWith('http') ? 'noopener noreferrer' : ''}
+                  target={contact.href.startsWith("http") ? "_blank" : "_self"}
+                  rel={
+                    contact.href.startsWith("http") ? "noopener noreferrer" : ""
+                  }
                   className="flex items-center p-4 bg-gray-50 dark:bg-gray-900 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200 group"
                 >
-                  <div className={`${getColorClasses(contact.color)} transition-colors duration-200`}>
+                  <div
+                    className={`${getColorClasses(
+                      contact.color
+                    )} transition-colors duration-200`}
+                  >
                     {contact.icon}
                   </div>
                   <div className="ml-4">
@@ -158,7 +185,7 @@ const Contact = () => {
                 Quick Info
               </h4>
               <div className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
-                <p>📍 Available for remote opportunities</p>
+                <p>📍 Seeking remote or on-site job opportunities</p>
                 <p>🎓 BCA Student at GNA University</p>
                 <p>💼 Open to internships and entry-level positions</p>
                 <p>🚀 Passionate about frontend development</p>
@@ -171,10 +198,13 @@ const Contact = () => {
             <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
               Send a Message
             </h3>
-            
+
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
-                <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label
+                  htmlFor="name"
+                  className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+                >
                   Your Name
                 </label>
                 <input
@@ -190,7 +220,10 @@ const Contact = () => {
               </div>
 
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+                >
                   Email Address
                 </label>
                 <input
@@ -206,7 +239,10 @@ const Contact = () => {
               </div>
 
               <div>
-                <label htmlFor="subject" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label
+                  htmlFor="subject"
+                  className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+                >
                   Subject
                 </label>
                 <input
@@ -222,7 +258,10 @@ const Contact = () => {
               </div>
 
               <div>
-                <label htmlFor="message" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label
+                  htmlFor="message"
+                  className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+                >
                   Message
                 </label>
                 <textarea
@@ -242,7 +281,11 @@ const Contact = () => {
                 className="w-full bg-gradient-to-r from-indigo-600 to-teal-600 text-white font-semibold py-3 px-6 rounded-lg hover:from-indigo-700 hover:to-teal-700 transition-all duration-300 transform hover:scale-105 flex items-center justify-center"
               >
                 {loading ? (
-                  <Lottie animationData={successAnimation} loop={false} style={{ height: 24 }} />
+                  <Lottie
+                    animationData={successAnimation}
+                    loop={false}
+                    style={{ height: 24 }}
+                  />
                 ) : (
                   <>
                     <Send className="w-5 h-5 mr-2" />
@@ -272,7 +315,8 @@ const Contact = () => {
 
             <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
               <p className="text-sm text-gray-500 dark:text-gray-400 text-center">
-                I typically respond within 24 hours. Looking forward to connecting with you!
+                I typically respond within 24 hours. Looking forward to
+                connecting with you!
               </p>
             </div>
           </div>
