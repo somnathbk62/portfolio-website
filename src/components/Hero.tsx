@@ -128,7 +128,7 @@ const Hero = () => {
                     </div>
                     <div className="space-y-1 sm:space-y-2 hidden lg:block">
                       <p className="text-slate-600 dark:text-slate-400 text-xs sm:text-sm font-medium">
-                        Frontend Developer
+                        Web Developer
                       </p>
                       <div className="flex justify-center space-x-1">
                         <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-blue-500 rounded-full animate-pulse"></div>
