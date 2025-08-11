@@ -118,7 +118,7 @@ const About = () => {
   return (
     <div
       ref={aboutRef}
-      className="py-12 sm:py-16 lg:py-20 bg-gradient-to-bl from-slate-50 via-purple-50/30 to-slate-100 dark:from-slate-800 dark:via-purple-900/20 dark:to-slate-900 relative overflow-hidden before:absolute before:top-0 before:left-0 before:right-0 before:h-px before:bg-gradient-to-r before:from-transparent before:via-purple-200/50 before:to-transparent dark:before:via-purple-700/50 after:absolute after:bottom-0 after:left-0 after:right-0 after:h-px after:bg-gradient-to-r after:from-transparent after:via-purple-200/50 after:to-transparent dark:after:via-purple-700/50"
+      className="py-5 sm:py-10 lg:py-8 bg-gradient-to-bl from-slate-50 via-purple-50/30 to-slate-100 dark:from-slate-800 dark:via-purple-900/20 dark:to-slate-900 relative overflow-hidden before:absolute before:top-0 before:left-0 before:right-0 before:h-px before:bg-gradient-to-r before:from-transparent before:via-purple-200/50 before:to-transparent dark:before:via-purple-700/50 after:absolute after:bottom-0 after:left-0 after:right-0 after:h-px after:bg-gradient-to-r after:from-transparent after:via-purple-200/50 after:to-transparent dark:after:via-purple-700/50"
     >
       {/* Background decorative elements */}
       <div className="absolute inset-0 overflow-hidden">

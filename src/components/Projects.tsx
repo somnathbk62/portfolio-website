@@ -180,7 +180,7 @@ const Projects = () => {
   };
 
   return (
-    <div className="py-16 sm:py-20 lg:py-24 bg-gradient-to-br from-slate-50 via-white to-blue-50 dark:from-slate-900 dark:via-gray-900 dark:to-indigo-950 relative overflow-hidden">
+    <div className="py-5 sm:py-5 lg:py-5 bg-gradient-to-br from-slate-50 via-white to-blue-50 dark:from-slate-900 dark:via-gray-900 dark:to-indigo-950 relative overflow-hidden">
       {/* Modern geometric pattern overlay */}
       <div className="absolute inset-0 opacity-[0.02] dark:opacity-[0.05] pointer-events-none">
         <div
@@ -380,7 +380,7 @@ const Projects = () => {
         </div>
 
         {/* Modern Call to Action */}
-        <div className="text-center mt-16 sm:mt-20 lg:mt-24">
+        <div className="text-center mt-8 sm:mt-8 lg:mt-8">
           <div className="relative bg-gradient-to-br from-indigo-50 via-white to-purple-50 dark:from-indigo-950/50 dark:via-gray-900 dark:to-purple-950/50 p-8 sm:p-10 lg:p-12 rounded-3xl border border-indigo-100/50 dark:border-indigo-900/30 shadow-2xl backdrop-blur-sm overflow-hidden">
             {/* Background decorations */}
             <div className="absolute inset-0 bg-gradient-to-r from-indigo-600/3 to-purple-600/3 rounded-3xl"></div>

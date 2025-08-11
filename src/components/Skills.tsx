@@ -78,7 +78,7 @@ const Skills = () => {
   ];
 
   return (
-    <div className="py-20 bg-gradient-to-br from-slate-50 via-white to-blue-50/30 dark:from-gray-900 dark:via-slate-800 dark:to-slate-900">
+    <div className="py-5 bg-gradient-to-br from-slate-50 via-white to-blue-50/30 dark:from-gray-900 dark:via-slate-800 dark:to-slate-900">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-16">
