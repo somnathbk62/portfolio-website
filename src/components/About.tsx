@@ -15,28 +15,105 @@ import {
 
 const About = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const aboutRef = useRef<HTMLDivElement>(null);
 
+  // Individual box visibility states for mobile
+  const [boxVisibility, setBoxVisibility] = useState({
+    whoIAm: false,
+    coreSkills: false,
+    passion: false,
+    goals: false,
+    beyondCode: false,
+    education: false,
+    experience: false,
+  });
+
+  // Individual refs for mobile animation
+  const whoIAmRef = useRef<HTMLDivElement>(null);
+  const coreSkillsRef = useRef<HTMLDivElement>(null);
+  const passionRef = useRef<HTMLDivElement>(null);
+  const goalsRef = useRef<HTMLDivElement>(null);
+  const beyondCodeRef = useRef<HTMLDivElement>(null);
+  const educationRef = useRef<HTMLDivElement>(null);
+  const experienceRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.3 }
-    );
-
-    if (aboutRef.current) {
-      observer.observe(aboutRef.current);
-    }
-
-    return () => {
-      if (aboutRef.current) {
-        observer.unobserve(aboutRef.current);
-      }
+    // Check if mobile
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 1024); // lg breakpoint
     };
-  }, []);
+
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+
+    if (isMobile) {
+      // Mobile: Individual observers for each box
+      const createObserver = (
+        ref: React.RefObject<HTMLDivElement>,
+        key: keyof typeof boxVisibility
+      ) => {
+        return new IntersectionObserver(
+          ([entry]) => {
+            if (entry.isIntersecting) {
+              setBoxVisibility((prev) => ({ ...prev, [key]: true }));
+            }
+          },
+          {
+            threshold: 0.2,
+            rootMargin: "0px 0px -50px 0px",
+          }
+        );
+      };
+
+      const observers = [
+        { ref: whoIAmRef, key: "whoIAm" as keyof typeof boxVisibility },
+        { ref: coreSkillsRef, key: "coreSkills" as keyof typeof boxVisibility },
+        { ref: passionRef, key: "passion" as keyof typeof boxVisibility },
+        { ref: goalsRef, key: "goals" as keyof typeof boxVisibility },
+        { ref: beyondCodeRef, key: "beyondCode" as keyof typeof boxVisibility },
+        { ref: educationRef, key: "education" as keyof typeof boxVisibility },
+        { ref: experienceRef, key: "experience" as keyof typeof boxVisibility },
+      ];
+
+      const observerInstances = observers.map(({ ref, key }) => {
+        const observer = createObserver(ref, key);
+        if (ref.current) {
+          observer.observe(ref.current);
+        }
+        return observer;
+      });
+
+      return () => {
+        observerInstances.forEach((observer) => observer.disconnect());
+        window.removeEventListener("resize", checkMobile);
+      };
+    } else {
+      // Desktop: Original behavior
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            setIsVisible(true);
+          }
+        },
+        {
+          threshold: 0.1,
+          rootMargin: "50px 0px -50px 0px",
+        }
+      );
+
+      if (aboutRef.current) {
+        observer.observe(aboutRef.current);
+      }
+
+      return () => {
+        if (aboutRef.current) {
+          observer.unobserve(aboutRef.current);
+        }
+        window.removeEventListener("resize", checkMobile);
+      };
+    }
+  }, [isMobile]);
 
   return (
     <div
@@ -74,7 +151,9 @@ const About = () => {
         <div className="text-center mb-8 sm:mb-12">
           <div
             className={`inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-900/40 dark:to-purple-900/40 rounded-full border border-blue-200 dark:border-blue-700/50 mb-4 transition-all duration-700 ${
-              isVisible
+              isMobile
+                ? "opacity-100 translate-y-0"
+                : isVisible
                 ? "opacity-100 translate-y-0"
                 : "opacity-0 translate-y-4"
             }`}
@@ -85,8 +164,12 @@ const About = () => {
             </span>
           </div>
           <h2
-            className={`text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 dark:text-white mb-4 transition-all duration-700 delay-100 ${
-              isVisible
+            className={`text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 dark:text-white mb-4 transition-all duration-700 ${
+              isMobile ? "delay-0" : "delay-100"
+            } ${
+              isMobile
+                ? "opacity-100 translate-y-0"
+                : isVisible
                 ? "opacity-100 translate-y-0"
                 : "opacity-0 translate-y-4"
             }`}
@@ -97,8 +180,12 @@ const About = () => {
             </span>
           </h2>
           <div
-            className={`max-w-3xl mx-auto transition-all duration-700 delay-200 ${
-              isVisible
+            className={`max-w-3xl mx-auto transition-all duration-700 ${
+              isMobile ? "delay-0" : "delay-200"
+            } ${
+              isMobile
+                ? "opacity-100 translate-y-0"
+                : isVisible
                 ? "opacity-100 translate-y-0"
                 : "opacity-0 translate-y-4"
             }`}
@@ -135,8 +222,15 @@ const About = () => {
           <div className="space-y-6">
             {/* Who I Am */}
             <div
-              className={`bg-white dark:bg-slate-800 rounded-2xl p-6 sm:p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-slate-200 dark:border-slate-700 transition-all duration-700 delay-300 ${
-                isVisible
+              ref={whoIAmRef}
+              className={`bg-white dark:bg-slate-800 rounded-2xl p-6 sm:p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-slate-200 dark:border-slate-700 transition-all duration-700 ${
+                isMobile ? "delay-0" : "delay-300"
+              } ${
+                isMobile
+                  ? boxVisibility.whoIAm
+                    ? "opacity-100 translate-x-0"
+                    : "opacity-0 -translate-x-8"
+                  : isVisible
                   ? "opacity-100 translate-x-0"
                   : "opacity-0 -translate-x-8"
               }`}
@@ -175,8 +269,15 @@ const About = () => {
 
             {/* Core Skills */}
             <div
-              className={`bg-white dark:bg-slate-800 rounded-2xl p-6 sm:p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-slate-200 dark:border-slate-700 transition-all duration-700 delay-400 ${
-                isVisible
+              ref={coreSkillsRef}
+              className={`bg-white dark:bg-slate-800 rounded-2xl p-6 sm:p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-slate-200 dark:border-slate-700 transition-all duration-700 ${
+                isMobile ? "delay-0" : "delay-400"
+              } ${
+                isMobile
+                  ? boxVisibility.coreSkills
+                    ? "opacity-100 translate-x-0"
+                    : "opacity-0 -translate-x-8"
+                  : isVisible
                   ? "opacity-100 translate-x-0"
                   : "opacity-0 -translate-x-8"
               }`}
@@ -227,8 +328,15 @@ const About = () => {
           <div className="space-y-6">
             {/* My Approach */}
             <div
-              className={`bg-white dark:bg-slate-800 rounded-2xl p-6 sm:p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-slate-200 dark:border-slate-700 transition-all duration-700 delay-500 ${
-                isVisible
+              ref={passionRef}
+              className={`bg-white dark:bg-slate-800 rounded-2xl p-6 sm:p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-slate-200 dark:border-slate-700 transition-all duration-700 ${
+                isMobile ? "delay-0" : "delay-500"
+              } ${
+                isMobile
+                  ? boxVisibility.passion
+                    ? "opacity-100 translate-x-0"
+                    : "opacity-0 translate-x-8"
+                  : isVisible
                   ? "opacity-100 translate-x-0"
                   : "opacity-0 translate-x-8"
               }`}
@@ -258,8 +366,15 @@ const About = () => {
 
             {/* Current Goals */}
             <div
-              className={`bg-white dark:bg-slate-800 rounded-2xl p-6 sm:p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-slate-200 dark:border-slate-700 transition-all duration-700 delay-600 ${
-                isVisible
+              ref={goalsRef}
+              className={`bg-white dark:bg-slate-800 rounded-2xl p-6 sm:p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-slate-200 dark:border-slate-700 transition-all duration-700 ${
+                isMobile ? "delay-0" : "delay-600"
+              } ${
+                isMobile
+                  ? boxVisibility.goals
+                    ? "opacity-100 translate-x-0"
+                    : "opacity-0 translate-x-8"
+                  : isVisible
                   ? "opacity-100 translate-x-0"
                   : "opacity-0 translate-x-8"
               }`}
@@ -290,8 +405,15 @@ const About = () => {
 
             {/* Personal Touch */}
             <div
-              className={`bg-white dark:bg-slate-800 rounded-2xl p-6 sm:p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-slate-200 dark:border-slate-700 transition-all duration-700 delay-700 ${
-                isVisible
+              ref={beyondCodeRef}
+              className={`bg-white dark:bg-slate-800 rounded-2xl p-6 sm:p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-slate-200 dark:border-slate-700 transition-all duration-700 ${
+                isMobile ? "delay-0" : "delay-700"
+              } ${
+                isMobile
+                  ? boxVisibility.beyondCode
+                    ? "opacity-100 translate-x-0"
+                    : "opacity-0 translate-x-8"
+                  : isVisible
                   ? "opacity-100 translate-x-0"
                   : "opacity-0 translate-x-8"
               }`}
@@ -325,8 +447,15 @@ const About = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
           {/* Education */}
           <div
-            className={`bg-white dark:bg-slate-800 rounded-2xl p-6 sm:p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-slate-200 dark:border-slate-700 transition-all duration-700 delay-800 ${
-              isVisible
+            ref={educationRef}
+            className={`bg-white dark:bg-slate-800 rounded-2xl p-6 sm:p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-slate-200 dark:border-slate-700 transition-all duration-700 ${
+              isMobile ? "delay-0" : "delay-800"
+            } ${
+              isMobile
+                ? boxVisibility.education
+                  ? "opacity-100 translate-y-0"
+                  : "opacity-0 translate-y-8"
+                : isVisible
                 ? "opacity-100 translate-y-0"
                 : "opacity-0 translate-y-8"
             }`}
@@ -388,8 +517,15 @@ const About = () => {
 
           {/* Experience */}
           <div
-            className={`bg-white dark:bg-slate-800 rounded-2xl p-6 sm:p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-slate-200 dark:border-slate-700 transition-all duration-700 delay-900 ${
-              isVisible
+            ref={experienceRef}
+            className={`bg-white dark:bg-slate-800 rounded-2xl p-6 sm:p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-slate-200 dark:border-slate-700 transition-all duration-700 ${
+              isMobile ? "delay-0" : "delay-900"
+            } ${
+              isMobile
+                ? boxVisibility.experience
+                  ? "opacity-100 translate-y-0"
+                  : "opacity-0 translate-y-8"
+                : isVisible
                 ? "opacity-100 translate-y-0"
                 : "opacity-0 translate-y-8"
             }`}

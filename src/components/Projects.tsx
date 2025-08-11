@@ -1,19 +1,72 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Github, ExternalLink, Code, Shield } from "lucide-react";
+import {
+  Github,
+  ExternalLink,
+  Code,
+  Shield,
+  ChevronLeft,
+  ChevronRight,
+} from "lucide-react";
 
 const Projects = () => {
-  const [showArrow, setShowArrow] = useState(true);
+  const [scrollIndicators, setScrollIndicators] = useState({
+    showLeft: false,
+    showRight: true,
+  });
+  const [showInitialHint, setShowInitialHint] = useState(true);
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    // Hide arrow after 2.5s or on scroll
-    const hideArrow = () => setShowArrow(false);
-    const timer = setTimeout(hideArrow, 2500);
+  const updateScrollIndicators = () => {
     const el = scrollRef.current;
-    if (el) el.addEventListener("scroll", hideArrow, { once: true });
+    if (!el) return;
+
+    const { scrollLeft, scrollWidth, clientWidth } = el;
+    const canScrollLeft = scrollLeft > 10;
+    const canScrollRight = scrollLeft < scrollWidth - clientWidth - 10;
+
+    setScrollIndicators({
+      showLeft: canScrollLeft,
+      showRight: canScrollRight,
+    });
+  };
+
+  const scrollToDirection = (direction: "left" | "right") => {
+    const el = scrollRef.current;
+    if (!el) return;
+
+    const scrollAmount = 350; // Adjust scroll distance
+    const currentScroll = el.scrollLeft;
+    const targetScroll =
+      direction === "right"
+        ? currentScroll + scrollAmount
+        : currentScroll - scrollAmount;
+
+    el.scrollTo({
+      left: targetScroll,
+      behavior: "smooth",
+    });
+  };
+
+  useEffect(() => {
+    const hideInitialHint = () => setShowInitialHint(false);
+    const timer = setTimeout(hideInitialHint, 3000);
+
+    const el = scrollRef.current;
+    if (el) {
+      // Update indicators on scroll
+      el.addEventListener("scroll", updateScrollIndicators);
+      el.addEventListener("scroll", hideInitialHint, { once: true });
+
+      // Initial check
+      updateScrollIndicators();
+    }
+
     return () => {
       clearTimeout(timer);
-      if (el) el.removeEventListener("scroll", hideArrow);
+      if (el) {
+        el.removeEventListener("scroll", updateScrollIndicators);
+        el.removeEventListener("scroll", hideInitialHint);
+      }
     };
   }, []);
 
@@ -21,7 +74,7 @@ const Projects = () => {
     {
       title: "🔐 SecureDoc: College File Manager with Firebase Authentication ",
       description:
-        "A web-based file management system for colleges and academic institutions. SecureDoc allows students and staff to upload, access, and manage files securely using Firebase services. The project focuses on access control, real-time availability, and user-friendly interface.",
+        "SecureDoc is a web-based file management system for colleges, enabling secure file upload, access, and management via Firebase. It ensures access control, real-time availability, and a user-friendly interface.",
       technologies: [
         "JavaScript",
         "Firebase Auth",
@@ -34,19 +87,18 @@ const Projects = () => {
         "User authentication with Firebase Auth",
         "Secure file upload and storage",
         "Real-time sync and access",
-        "Responsive web design",
         "Designed for student/college use cases",
         "Role-based access for students, and admins",
       ],
       icon: <Shield className="w-8 h-8" />,
       color: "teal",
-      github: "https://github.com/somnathbk62/projects/tree/main/securedocs",
+      github: "https://github.com/somnathbk62/securedocs",
       demo: "https://securefileshub.netlify.app/",
     },
     {
       title: "🤝 CodeTogether: Real-Time Collaborative Code Editor & Chat",
       description:
-        "A full-stack, real-time collaborative code editor and chat platform. Enables multiple users to edit code together, chat live, share files, and switch between light/dark themes. Available on both web and Android, it’s designed for seamless teamwork, learning, and remote collaboration.",
+        "A full-stack real-time collaborative code editor and chat platform, enabling multi-user coding, live chat, file sharing, and light/dark themes for seamless teamwork on web.",
       technologies: [
         "React",
         "Node.js",
@@ -62,7 +114,6 @@ const Projects = () => {
         "File and image uploads within sessions",
         "Light/dark theming",
         "Simple room creation/joining",
-        "Modern, responsive UI",
       ],
       icon: <ExternalLink className="w-8 h-8" />, // Using ExternalLink for demo/project
       color: "indigo", // Reusing indigo for visual variety
@@ -87,20 +138,19 @@ const Projects = () => {
       ],
       icon: <Code className="w-8 h-8" />,
       color: "indigo",
-      github:
-        "https://github.com/somnathbk62/projects/tree/main/tic-tac-toe-game",
+      github: "https://github.com/somnathbk62/tic-tac-toe-game",
     },
     {
       title: "💱 Currency Converter",
       description:
-        "Currency Converter is a modern, web-based application that enables users to convert between over 150 world currencies using real-time exchange rates. The project is designed with a focus on user experience, featuring a clean, responsive interface and smooth animations.",
+        "Currency Converter is a web app that lets users convert between 150+ currencies using real-time rates, featuring a clean, responsive design with smooth animations..",
       technologies: ["HTML", "CSS", "JavaScript", "open.er-api.com"],
       features: [
         "Convert between 150+ global currencies.",
         "Real-time exchange rates powered by open.er-api.com.",
         "Intuitive, user-friendly UI with responsive design for all devices.",
         "One-click currency swap functionality.",
-        "Modern look and feel, inspired by current web design trends.",
+        "One-click currency swap functionality.",
       ],
       icon: <ExternalLink className="w-8 h-8" />,
       color: "teal",
@@ -130,213 +180,247 @@ const Projects = () => {
   };
 
   return (
-    <div className="py-20 bg-gradient-to-bl from-orange-50/40 via-amber-50/20 to-white dark:from-orange-900/15 dark:via-amber-900/10 dark:to-slate-800 relative overflow-hidden before:absolute before:inset-0 before:bg-gradient-to-tl before:from-transparent before:via-amber-50/40 before:to-transparent before:pointer-events-none dark:before:via-amber-900/20 after:absolute after:top-0 after:left-0 after:right-0 after:h-px after:bg-gradient-to-r after:from-transparent after:via-orange-200/50 after:to-transparent dark:after:via-orange-700/50">
-      {/* Subtle pattern overlay */}
+    <div className="py-16 sm:py-20 lg:py-24 bg-gradient-to-br from-slate-50 via-white to-blue-50 dark:from-slate-900 dark:via-gray-900 dark:to-indigo-950 relative overflow-hidden">
+      {/* Modern geometric pattern overlay */}
+      <div className="absolute inset-0 opacity-[0.02] dark:opacity-[0.05] pointer-events-none">
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `
+              radial-gradient(circle at 25px 25px, rgba(99, 102, 241, 0.1) 2px, transparent 0),
+              radial-gradient(circle at 75px 75px, rgba(168, 85, 247, 0.1) 1px, transparent 0)
+            `,
+            backgroundSize: "100px 100px",
+          }}
+        />
+      </div>
+
+      {/* Animated background elements */}
+      <div className="absolute top-20 left-10 w-32 h-32 bg-gradient-to-r from-indigo-400/10 to-purple-400/10 rounded-full blur-3xl animate-float"></div>
       <div
-        className="absolute inset-0 opacity-[0.025] dark:opacity-[0.07]"
-        style={{
-          backgroundImage: `repeating-linear-gradient(45deg, rgba(251, 146, 60, 0.3), rgba(251, 146, 60, 0.3) 1px, transparent 1px, transparent 8px)`,
-          backgroundSize: "14px 14px",
-        }}
+        className="absolute bottom-20 right-10 w-40 h-40 bg-gradient-to-r from-teal-400/10 to-blue-400/10 rounded-full blur-3xl animate-float"
+        style={{ animationDelay: "2s" }}
       ></div>
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
-            Featured Projects
+        <div className="text-center mb-12 sm:mb-16 lg:mb-20">
+          <div className="inline-flex items-center justify-center px-4 py-2 bg-indigo-100 dark:bg-indigo-900/30 rounded-full text-indigo-600 dark:text-indigo-400 text-sm font-semibold mb-4">
+            <Code className="w-4 h-4 mr-2" />
+            Portfolio Showcase
+          </div>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6">
+            Featured{" "}
+            <span className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+              Projects
+            </span>
           </h2>
-          <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-            Here are some of my notable projects that showcase my technical
-            skills and problem-solving abilities
+          <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed">
+            Explore my latest work showcasing modern web development, innovative
+            solutions, and creative problem-solving
           </p>
         </div>
 
-        {/* Horizontal Scroll Container */}
-        <div className="relative">
+        {/* Responsive Projects Container */}
+        <div className="relative group">
+          {/* Scroll Indicators - All screen sizes */}
+          {scrollIndicators.showLeft && (
+            <div className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-30">
+              <button
+                onClick={() => scrollToDirection("left")}
+                className="bg-white/95 dark:bg-gray-800/95 backdrop-blur-md border-2 border-indigo-100 dark:border-indigo-900 rounded-xl p-2 sm:p-3 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-indigo-500 group hover:-translate-x-1"
+                aria-label="Scroll left to see previous projects"
+              >
+                <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5 text-gray-700 dark:text-gray-300 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors duration-200" />
+              </button>
+            </div>
+          )}
+
+          {scrollIndicators.showRight && (
+            <div className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-30">
+              <button
+                onClick={() => scrollToDirection("right")}
+                className="bg-white/95 dark:bg-gray-800/95 backdrop-blur-md border-2 border-indigo-100 dark:border-indigo-900 rounded-xl p-2 sm:p-3 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-indigo-500 group hover:translate-x-1"
+                aria-label="Scroll right to see more projects"
+              >
+                <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 text-gray-700 dark:text-gray-300 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors duration-200" />
+              </button>
+            </div>
+          )}
+
+          {/* Initial Hint Animation */}
+          {showInitialHint &&
+            scrollIndicators.showRight &&
+            !scrollIndicators.showLeft && (
+              <div className="absolute right-14 sm:right-16 top-1/2 -translate-y-1/2 z-20 pointer-events-none">
+                <div className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-3 py-1.5 rounded-xl text-xs font-semibold shadow-lg animate-pulse">
+                  <span className="hidden sm:inline">
+                    Swipe to see more projects →
+                  </span>
+                  <span className="sm:hidden">Swipe →</span>
+                </div>
+              </div>
+            )}
+
+          {/* Horizontal Scroll Container - All Screen Sizes */}
           <div
             ref={scrollRef}
             className="overflow-x-auto scrollbar-hide"
             style={{ WebkitOverflowScrolling: "touch" }}
           >
-            <div className="flex gap-6 px-4 md:px-8 snap-x snap-mandatory scroll-smooth w-max">
+            <div className="flex gap-4 sm:gap-5 md:gap-6 px-4 sm:px-6 snap-x snap-mandatory scroll-smooth w-max">
               {projects.map((project, index) => {
                 const colors = getColorClasses(project.color);
                 return (
                   <div
                     key={index}
-                    className={`w-[calc((100vw-2rem-2rem-2rem)/2)] max-w-[500px] min-w-[320px] flex-shrink-0 bg-gray-50 dark:bg-gray-900 p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border ${colors.border} fade-in-up flex flex-col justify-between snap-start`}
+                    className={`w-[85vw] sm:w-[75vw] md:w-[55vw] lg:w-[42vw] xl:w-[40vw] 2xl:w-[38vw] min-h-[480px] sm:min-h-[500px] lg:min-h-[520px] flex-shrink-0 bg-white dark:bg-gray-900 p-4 sm:p-5 lg:p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border ${colors.border} fade-in-up flex flex-col snap-start relative overflow-hidden group/card`}
                     style={{ animationDelay: `${index * 0.1}s` }}
                   >
-                    {/* Project Header */}
-                    <div>
+                    <div className="absolute inset-0 opacity-[0.02] dark:opacity-[0.05] pointer-events-none">
+                      <div
+                        className={`absolute inset-0 bg-gradient-to-br ${colors.bg} opacity-15`}
+                      ></div>
+                    </div>
+
+                    <div className="relative z-10 h-full flex flex-col">
                       <div className="flex items-center mb-3">
                         <div
-                          className={`w-12 h-12 ${colors.bg} rounded-xl flex items-center justify-center mr-3 shadow-md transition-transform duration-300`}
+                          className={`w-10 h-10 ${colors.bg} rounded-xl flex items-center justify-center mr-3 shadow-md transition-all duration-300 group-hover/card:scale-105`}
                         >
-                          <div className={colors.icon}>{project.icon}</div>
+                          <div
+                            className={`${colors.icon} transition-transform duration-300`}
+                          >
+                            {project.icon}
+                          </div>
                         </div>
-                        <h3 className="text-xl font-bold text-gray-900 dark:text-white">
-                          {project.title}
-                        </h3>
+                        <div className="flex-1 min-w-0">
+                          <h3 className="text-base font-bold text-gray-900 dark:text-white leading-tight">
+                            {project.title}
+                          </h3>
+                        </div>
                       </div>
 
-                      {/* Project Description */}
-                      <p className="text-gray-700 dark:text-gray-300 mb-3 leading-relaxed text-sm">
+                      <p className="text-gray-600 dark:text-gray-400 mb-3 leading-relaxed text-sm line-clamp-4 ">
                         {project.description}
                       </p>
 
-                      {/* Technologies */}
-                      <div className="mb-3">
-                        <h4 className="text-xs font-semibold text-gray-500 dark:text-gray-400 mb-2 uppercase tracking-widest">
-                          Technologies Used
-                        </h4>
-                        <div className="flex flex-wrap gap-1.5">
-                          {project.technologies.map((tech, techIndex) => (
+                      <div className="space-y-4 mb-4">
+                        <div>
+                          <h4 className="text-base font-semibold text-gray-700 dark:text-gray-300 mb-2.5 flex items-center">
                             <span
-                              key={techIndex}
-                              className={`px-2 py-1 ${colors.bg} ${colors.text} rounded-full text-xs font-semibold shadow-sm`}
-                            >
-                              {tech}
-                            </span>
-                          ))}
+                              className={`w-1.5 h-1.5 rounded-full ${colors.button} mr-2`}
+                            ></span>
+                            Technologies
+                          </h4>
+                          <div className="flex flex-wrap gap-1.5">
+                            {project.technologies.map((tech, techIndex) => (
+                              <span
+                                key={techIndex}
+                                className={`px-2 py-0.5 ${colors.bg} ${colors.text} rounded-md text-sm font-medium`}
+                              >
+                                {tech}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+
+                        <div>
+                          <h4 className="text-base font-semibold text-gray-700 dark:text-gray-300 mb-1.5 flex items-center">
+                            <span
+                              className={`w-1.5 h-1.5 rounded-full ${colors.button} mr-2`}
+                            ></span>
+                            Key Features
+                          </h4>
+                          <div className="space-y-2.5">
+                            {project.features.map((feature, featureIndex) => (
+                              <div
+                                key={featureIndex}
+                                className="flex items-start"
+                              >
+                                <div
+                                  className={`w-1 h-1 rounded-full mt-1.5 mr-2 ${colors.button} flex-shrink-0`}
+                                ></div>
+                                <span className="text-gray-600 dark:text-gray-400 text-sm leading-snug">
+                                  {feature}
+                                </span>
+                              </div>
+                            ))}
+                          </div>
                         </div>
                       </div>
 
-                      {/* Features */}
-                      <div className="mb-3">
-                        <h4 className="text-xs font-semibold text-gray-500 dark:text-gray-400 mb-2 uppercase tracking-widest">
-                          Key Features
-                        </h4>
-                        <ul className="space-y-0.5">
-                          {project.features.map((feature, featureIndex) => (
-                            <li key={featureIndex} className="flex items-start">
-                              <span
-                                className={`w-1.5 h-1.5 mt-1.5 mr-2 rounded-full inline-block ${colors.button}`}
-                              ></span>
-                              <span className="text-gray-600 dark:text-gray-300 text-xs font-normal">
-                                {feature}
-                              </span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    </div>
-
-                    {/* Action Buttons */}
-                    <div className="flex gap-3 mt-auto">
-                      <a
-                        href={project.github}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={`flex-1 bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-3 py-2 rounded-xl font-semibold transition-all duration-200 flex items-center justify-center shadow-md hover:scale-105 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-indigo-400 text-sm`}
-                      >
-                        <Github className="w-3 h-3 mr-1.5" />
-                        View Code
-                      </a>
-                      {project.demo && (
+                      <div className="flex gap-3 mt-auto">
                         <a
-                          href={project.demo}
+                          href={project.github}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex-1 border-2 border-indigo-600 text-indigo-600 dark:text-indigo-400 dark:border-indigo-400 px-3 py-2 rounded-xl font-semibold hover:bg-indigo-600 hover:text-white dark:hover:bg-indigo-600 dark:hover:text-white transition-all duration-200 flex items-center justify-center shadow-md hover:scale-105 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-teal-400 text-sm"
+                          className="flex-1 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white px-3 py-2 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center shadow-md hover:scale-105 text-sm"
                         >
-                          <ExternalLink className="w-3 h-3 mr-1.5" />
-                          Live Demo
+                          <Github className="w-3 h-3 mr-1.5" />
+                          <span>Code</span>
                         </a>
-                      )}
+                        {project.demo && (
+                          <a
+                            href={project.demo}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex-1 border border-indigo-600 text-indigo-600 dark:text-indigo-400 px-3 py-2 rounded-lg font-semibold hover:bg-indigo-600 hover:text-white transition-all duration-300 flex items-center justify-center shadow-md hover:scale-105 text-sm"
+                          >
+                            <ExternalLink className="w-3 h-3 mr-1.5" />
+                            <span>Demo</span>
+                          </a>
+                        )}
+                      </div>
                     </div>
                   </div>
                 );
               })}
             </div>
-            {/* Gradient overlay right edge */}
-            <div
-              className="pointer-events-none absolute top-0 right-0 h-full w-16 z-10"
-              style={{
-                background:
-                  "linear-gradient(to left, rgba(255,255,255,0.85) 60%, rgba(255,255,255,0))",
-              }}
-            />
-            {/* Animated right arrow cue */}
-            {showArrow && (
-              <div className="pointer-events-none absolute top-1/2 right-6 z-20 -translate-y-1/2 flex items-center">
-                <svg
-                  className="animate-bounce-x"
-                  width="32"
-                  height="32"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="#6366f1"
-                  strokeWidth="2.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <polyline points="9 18 15 12 9 6" />
-                </svg>
-              </div>
-            )}
           </div>
         </div>
 
-        {/* Call to Action */}
-        <div className="text-center mt-16">
-          <div className="bg-gradient-to-r from-indigo-50 to-teal-50 dark:from-gray-800 dark:to-gray-700 p-8 rounded-2xl">
-            <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-              Interested in My Work?
-            </h3>
-            <p className="text-gray-600 dark:text-gray-400 mb-6 max-w-2xl mx-auto">
-              These projects represent my journey in web development and
-              programming. I'm always working on new projects and learning new
-              technologies.
-            </p>
-            <a
-              href="https://github.com/somnathbk62"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center px-6 py-3 bg-gray-900 dark:bg-white text-white dark:text-gray-900 font-semibold rounded-lg hover:bg-gray-800 dark:hover:bg-gray-100 transition-colors duration-200"
-            >
-              <Github className="w-5 h-5 mr-2" />
-              View All Projects on GitHub
-            </a>
+        {/* Modern Call to Action */}
+        <div className="text-center mt-16 sm:mt-20 lg:mt-24">
+          <div className="relative bg-gradient-to-br from-indigo-50 via-white to-purple-50 dark:from-indigo-950/50 dark:via-gray-900 dark:to-purple-950/50 p-8 sm:p-10 lg:p-12 rounded-3xl border border-indigo-100/50 dark:border-indigo-900/30 shadow-2xl backdrop-blur-sm overflow-hidden">
+            {/* Background decorations */}
+            <div className="absolute inset-0 bg-gradient-to-r from-indigo-600/3 to-purple-600/3 rounded-3xl"></div>
+            <div className="absolute top-4 right-4 w-20 h-20 bg-gradient-to-br from-indigo-400/10 to-purple-400/10 rounded-full blur-2xl animate-pulse"></div>
+            <div
+              className="absolute bottom-4 left-4 w-16 h-16 bg-gradient-to-br from-teal-400/10 to-blue-400/10 rounded-full blur-2xl animate-pulse"
+              style={{ animationDelay: "1s" }}
+            ></div>
+
+            <div className="relative z-10">
+              <div className="inline-flex items-center justify-center px-4 py-2 bg-indigo-100 dark:bg-indigo-900/30 rounded-full text-indigo-600 dark:text-indigo-400 text-sm font-semibold mb-4 backdrop-blur-sm">
+                <Github className="w-4 h-4 mr-2" />
+                Open Source Portfolio
+              </div>
+              <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6">
+                Want to see{" "}
+                <span className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+                  more
+                </span>
+                ?
+              </h3>
+              <p className="text-gray-600 dark:text-gray-400 mb-2  max-w-2xl mx-auto text-lg leading-relaxed ">
+                Discover more projects, contributions, and experiments on my
+                GitHub profile. From web applications to open-source
+                contributions.
+              </p>
+              <a
+                href="https://github.com/somnathbk62"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold rounded-2xl hover:from-indigo-700 hover:to-purple-700 transition-all duration-300 shadow-xl hover:shadow-2xl hover:scale-105 transform focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 group"
+              >
+                <Github className="w-5 h-5 mr-3 transition-transform group-hover:rotate-12" />
+                <span>Explore All Projects</span>
+                <ExternalLink className="w-4 h-4 ml-2 transition-transform group-hover:scale-110" />
+              </a>
+            </div>
           </div>
         </div>
       </div>
-
-      {/* Add custom scrollbar, fade-in animation, and arrow bounce styles */}
-      <style
-        dangerouslySetInnerHTML={{
-          __html: `
-          .scrollbar-hide {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-          }
-          .scrollbar-hide::-webkit-scrollbar {
-            display: none;
-          }
-          .fade-in-up {
-            opacity: 0;
-            transform: translateY(40px);
-            animation: fadeInUp 0.6s forwards;
-          }
-          @keyframes fadeInUp {
-            to {
-              opacity: 1;
-              transform: none;
-            }
-          }
-          .hover\\:border-gradient:hover {
-            border-image: linear-gradient(90deg, #6366f1 0%, #14b8a6 100%) 1;
-          }
-          @keyframes bounceX {
-            0%, 100% { transform: translateX(0); opacity: 1; }
-            30% { transform: translateX(12px); opacity: 1; }
-            80% { opacity: 0.7; }
-          }
-          .animate-bounce-x {
-            animation: bounceX 1.2s cubic-bezier(.4,0,.6,1) infinite;
-          }
-        `,
-        }}
-      />
     </div>
   );
 };
