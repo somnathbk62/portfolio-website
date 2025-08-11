@@ -234,7 +234,7 @@ const Services = () => {
                 <ul className="space-y-1.5 text-left text-white/90 text-sm">
                   <li className="flex items-center">
                     <div className="w-1.5 h-1.5 bg-green-400 rounded-full mr-2 flex-shrink-0"></div>
-                    <span>Frontend Development Internships</span>
+                    <span>web Development Internships</span>
                   </li>
                   <li className="flex items-center">
                     <div className="w-1.5 h-1.5 bg-green-400 rounded-full mr-2 flex-shrink-0"></div>

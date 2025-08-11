@@ -59,7 +59,7 @@ const Hero = () => {
               <div className="flex flex-wrap items-center justify-center lg:justify-start gap-1 sm:gap-2 text-sm sm:text-base md:text-lg lg:text-xl text-slate-600 dark:text-slate-300">
                 <Sparkles className="w-3 h-3 sm:w-4 sm:h-4 lg:w-5 lg:h-5 text-orange-500 flex-shrink-0" />
                 <span className="text-center sm:text-left">
-                  Aspiring Frontend Developer
+                  Aspiring Web Developer
                 </span>
                 <span className="text-slate-400 dark:text-slate-500 hidden sm:inline">
                   |
