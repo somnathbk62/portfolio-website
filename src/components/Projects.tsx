@@ -130,8 +130,16 @@ const Projects = () => {
   };
 
   return (
-    <div className="py-20 bg-white dark:bg-gray-800 relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+    <div className="py-20 bg-gradient-to-bl from-orange-50/40 via-amber-50/20 to-white dark:from-orange-900/15 dark:via-amber-900/10 dark:to-slate-800 relative overflow-hidden before:absolute before:inset-0 before:bg-gradient-to-tl before:from-transparent before:via-amber-50/40 before:to-transparent before:pointer-events-none dark:before:via-amber-900/20 after:absolute after:top-0 after:left-0 after:right-0 after:h-px after:bg-gradient-to-r after:from-transparent after:via-orange-200/50 after:to-transparent dark:after:via-orange-700/50">
+      {/* Subtle pattern overlay */}
+      <div
+        className="absolute inset-0 opacity-[0.025] dark:opacity-[0.07]"
+        style={{
+          backgroundImage: `repeating-linear-gradient(45deg, rgba(251, 146, 60, 0.3), rgba(251, 146, 60, 0.3) 1px, transparent 1px, transparent 8px)`,
+          backgroundSize: "14px 14px",
+        }}
+      ></div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
             Featured Projects
