@@ -6,6 +6,8 @@ import {
   Shield,
   ChevronLeft,
   ChevronRight,
+  Dumbbell,
+  Coins,
 } from "lucide-react";
 
 const Projects = () => {
@@ -13,8 +15,10 @@ const Projects = () => {
     showLeft: false,
     showRight: true,
   });
-  const [showInitialHint, setShowInitialHint] = useState(true);
+  const [showInitialHint, setShowInitialHint] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const hasShownHintRef = useRef(false);
 
   const updateScrollIndicators = () => {
     const el = scrollRef.current;
@@ -48,25 +52,40 @@ const Projects = () => {
   };
 
   useEffect(() => {
-    const hideInitialHint = () => setShowInitialHint(false);
-    const timer = setTimeout(hideInitialHint, 3000);
-
     const el = scrollRef.current;
     if (el) {
-      // Update indicators on scroll
       el.addEventListener("scroll", updateScrollIndicators);
-      el.addEventListener("scroll", hideInitialHint, { once: true });
-
-      // Initial check
       updateScrollIndicators();
     }
 
+    // Observe when the section is in view to show the hint
+    const section = sectionRef.current;
+    let observer: IntersectionObserver | null = null;
+
+    if (section && !hasShownHintRef.current) {
+      observer = new IntersectionObserver(
+        (entries) => {
+          const [entry] = entries;
+          if (entry.isIntersecting && !hasShownHintRef.current) {
+            hasShownHintRef.current = true;
+            setShowInitialHint(true);
+            // Auto-hide after a short delay
+            const t = setTimeout(() => setShowInitialHint(false), 3000);
+            // Clear timer if component unmounts
+            return () => clearTimeout(t);
+          }
+        },
+        { threshold: 0.25 }
+      );
+      observer.observe(section);
+    }
+
     return () => {
-      clearTimeout(timer);
       if (el) {
         el.removeEventListener("scroll", updateScrollIndicators);
-        el.removeEventListener("scroll", hideInitialHint);
       }
+      if (observer && section) observer.unobserve(section);
+      if (observer) observer.disconnect();
     };
   }, []);
 
@@ -121,6 +140,29 @@ const Projects = () => {
       demo: "https://codewith-us.netlify.app/",
     },
     {
+      title: "💪 FitZone Gym Website",
+      description:
+        "A modern, responsive gym website built with React.js and Tailwind CSS. Features dark mode, smooth animations, SEO optimization, and easy customization for trainers and clients.",
+      technologies: [
+        "React.js",
+        "Tailwind CSS",
+        "JavaScript ES6+",
+        "HTML5 & CSS3",
+        "React Context API",
+      ],
+      features: [
+        "Fully responsive layout for mobile, tablet, and desktop",
+        "Dark mode toggle for better accessibility and UI experience",
+        "SEO optimized with semantic HTML, meta tags, and structured data",
+        "Lazy loading images and optimized assets for faster page load.",
+        "Hover effects, transitions, and subtle animations enhance the user experience.",
+      ],
+      icon: <Dumbbell className="w-8 h-8" />, // Gym-themed icon
+      color: "green", // Choose a color that fits gym/fitness theme
+      github: "https://github.com/somnathbk62/gym-website",
+      demo: "https://fitzonejalandhar.netlify.app/",
+    },
+    {
       title: "🎮 Tic Tac Toe Game",
       description:
         "Console-based interactive game built with C++ featuring win/draw detection logic and clean user interface. Demonstrates strong understanding of procedural programming and game logic implementation.",
@@ -152,7 +194,7 @@ const Projects = () => {
         "One-click currency swap functionality.",
         "One-click currency swap functionality.",
       ],
-      icon: <ExternalLink className="w-8 h-8" />,
+      icon: <Coins className="w-8 h-8" />,
       color: "teal",
       github: "https://github.com/somnathbk62/currency-converter",
       demo: "https://globexchange.netlify.app/",
@@ -175,12 +217,23 @@ const Projects = () => {
         button: "bg-teal-600 hover:bg-teal-700",
         border: "border-teal-200 dark:border-teal-800",
       },
-    };
-    return colorMap[color as keyof typeof colorMap];
+      green: {
+        bg: "bg-green-100 dark:bg-green-900",
+        text: "text-green-800 dark:text-green-200",
+        icon: "text-green-600 dark:text-green-400",
+        button: "bg-green-600 hover:bg-green-700",
+        border: "border-green-200 dark:border-green-800",
+      },
+    } as const;
+    type ColorClasses = (typeof colorMap)[keyof typeof colorMap];
+    return (colorMap as Record<string, ColorClasses>)[color] ?? colorMap.indigo;
   };
 
   return (
-    <div className="py-5 sm:py-5 lg:py-5 bg-gradient-to-br from-slate-50 via-white to-blue-50 dark:from-slate-900 dark:via-gray-900 dark:to-indigo-950 relative overflow-hidden">
+    <div
+      ref={sectionRef}
+      className="py-5 sm:py-5 lg:py-5 bg-gradient-to-br from-slate-50 via-white to-blue-50 dark:from-slate-900 dark:via-gray-900 dark:to-indigo-950 relative overflow-hidden"
+    >
       {/* Modern geometric pattern overlay */}
       <div className="absolute inset-0 opacity-[0.02] dark:opacity-[0.05] pointer-events-none">
         <div

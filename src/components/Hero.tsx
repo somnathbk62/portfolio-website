@@ -109,7 +109,7 @@ const Hero = () => {
 
           {/* Enhanced Profile Picture Area */}
           <div className="flex justify-center lg:justify-end animate-fade-in order-1 lg:order-2">
-            <div className="relative">
+            <div className="relative pb-12 xs:pb-14 sm:pb-16 lg:pb-0">
               {/* Main profile container - Improved mobile sizes */}
               <div className="relative w-52 h-52 xs:w-60 xs:h-60 sm:w-72 sm:h-72 md:w-80 md:h-80 lg:w-80 lg:h-80 xl:w-96 xl:h-96">
                 {/* Animated background rings */}
@@ -143,7 +143,7 @@ const Hero = () => {
                 <div className="absolute -bottom-8 xs:-bottom-10 sm:-bottom-12 left-1/2 transform -translate-x-1/2 lg:hidden">
                   <div className="text-center space-y-0.5 sm:space-y-1">
                     <p className="text-slate-600 dark:text-slate-400 text-xs xs:text-sm sm:text-base font-medium px-2 bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm rounded-full py-1">
-                      Frontend Developer
+                      Web Developer
                     </p>
                     <div className="flex justify-center space-x-1">
                       <div className="w-1 h-1 sm:w-1.5 sm:h-1.5 bg-blue-500 rounded-full animate-pulse"></div>
