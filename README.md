@@ -1,5 +1,9 @@
 # Portfolio Website
 
+## 🚀 Live Demo
+
+Check out the live project: [somnathdev.netlify.app](https://somnathdev.netlify.app/)
+
 ## Project info
 
 **Use your preferred IDE**
@@ -55,7 +59,3 @@ You can deploy this project using your preferred deployment platform (such as Ve
 ## Can I connect a custom domain?
 
 Yes, you can! Most deployment platforms allow you to connect a custom domain. Please refer to your chosen platform's documentation for details.
-
-## 🚀 Live Demo
-
-Check out the live project: [somnathdev.netlify.app](https://somnathdev.netlify.app/)
